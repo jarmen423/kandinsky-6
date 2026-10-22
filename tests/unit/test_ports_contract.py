@@ -1,4 +1,4 @@
-"""Tests for the FLF2AV algorithm port contract."""
+"""Tests for the public K6 algorithm port contract."""
 
 from __future__ import annotations
 
@@ -8,6 +8,10 @@ import sys
 from pathlib import Path
 
 from kandinsky.core import ports
+from kandinsky.core.algo.conditioning import (
+    encode_audio_condition,
+    encode_video_condition,
+)
 from kandinsky.core.algo.denoise_loop import denoise_loop
 from kandinsky.core.algo.flow_matching import flow_match_timesteps
 from kandinsky.core.algo.guidance import apply_cfg
@@ -46,6 +50,8 @@ def test_public_contract_exports_the_canonical_types_and_functions() -> None:
         "build_tail_condition": build_tail_condition,
         "compute_reference_rope": compute_reference_rope,
         "restore_tail_references": restore_tail_references,
+        "encode_audio_condition": encode_audio_condition,
+        "encode_video_condition": encode_video_condition,
         "postprocess_video": postprocess_video,
         "postprocess_audio": postprocess_audio,
     }
