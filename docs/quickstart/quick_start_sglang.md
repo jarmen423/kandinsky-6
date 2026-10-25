@@ -1,6 +1,6 @@
 # Quick start: SGLang
 
-Kandinsky 6 is not in a released SGLang package. This environment is separate from [the pipeline](quick_start.md). The recipe index is [just.md](just.md). The full upstream recipe is the [SGLang Kandinsky 6 page](https://docs.sglang.io/cookbook/diffusion/Kandinsky/Kandinsky6).
+Kandinsky 6 on [SGLang](https://github.com/sgl-project/sglang) 0.5.22. This environment is separate from [the pipeline](quick_start.md). The recipe index is [just.md](../just.md). The full upstream recipe is the [SGLang Kandinsky 6 page](https://docs.sglang.io/cookbook/diffusion/Kandinsky/Kandinsky6).
 
 You need [uv](https://docs.astral.sh/uv/) and [just](https://just.systems/). Run every recipe from the repository root.
 
@@ -12,7 +12,7 @@ You need [uv](https://docs.astral.sh/uv/) and [just](https://just.systems/). Run
 just setup-sglang
 ```
 
-Checks out [SGLang](https://github.com/sgl-project/sglang) `main` into `.third-party/sglang` and installs the `diffusion` extra into `.venvs/sglang` (Python 3.12). A second run reuses that checkout. Delete `.third-party/sglang` first to pick up a newer `main`. This does not replace the `.venv` from `just setup`.
+Installs SGLang 0.5.22 with the diffusion extra into `.venvs/sglang` (Python 3.12). This is the release that includes Kandinsky 6. A second run installs that same release again. This does not replace the `.venv` from `just setup`.
 
 `just generate-sglang` stops and names this recipe when the environment is missing.
 

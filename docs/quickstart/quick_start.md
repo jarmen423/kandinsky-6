@@ -1,6 +1,6 @@
 # Quick start
 
-The Kandinsky pipeline. Framework ports have their own guides: [vLLM-Omni](quick_start_vllm.md), [SGLang](quick_start_sglang.md), [FastVideo](quick_start_fastvideo.md). The recipe index is [just.md](just.md).
+The Kandinsky pipeline. Framework ports have their own guides: [vLLM-Omni](quick_start_vllm.md), [SGLang](quick_start_sglang.md), [FastVideo](quick_start_fastvideo.md). The recipe index is [just.md](../just.md). Generation modes are [generation modes](../generation_modes.md).
 
 An NVIDIA GPU and Python 3.13 or 3.14. You need [uv](https://docs.astral.sh/uv/) and [just](https://just.systems/). Run every recipe from the repository root.
 
@@ -52,7 +52,7 @@ Anything after the prompt is a `kandy generate` flag:
 just generate 'A cat is lying on a mat, turns toward the camera, opens its mouth and says <S>Hello<E>' --config kandinsky/configs/devices/rtx-5090.yaml --out clip.mp4
 ```
 
-Image-to-video-and-audio uses the shipped frame:
+Image-to-video-and-audio uses the shipped frame. The other modes are in [generation modes](../generation_modes.md).
 
 ```bash
 just generate 'A cat is lying on a mat, turns toward the camera, opens its mouth and says <S>Hello<E>' --image assets/i2va_input.jpg
@@ -63,6 +63,9 @@ just generate 'A cat is lying on a mat, turns toward the camera, opens its mouth
 | `--config` | YAML preset. The default is `kandinsky/configs/devices/h100.yaml` |
 | `--out` | Output file. Skips the stamped run directory |
 | `--image` | Reference frame for image-to-video-and-audio. The shipped frame is `assets/i2va_input.jpg` |
+| `--last-image` | Last reference of one video. Requires `--image` |
+| `--audio-file` | Audio file that conditions the video |
+| `--video-file` | Video file that conditions the audio |
 | `--no-audio` | Video only |
 | `--steps`, `--guidance`, `--seed` | Sampler overrides |
 | `--height`, `--width`, `--time-length`, `--latent-frames` | Geometry overrides |

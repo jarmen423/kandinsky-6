@@ -1,6 +1,6 @@
 # Quick start: vLLM-Omni
 
-Kandinsky 6 on [vLLM-Omni](https://github.com/vllm-project/vllm-omni) `main`. This environment is separate from [the pipeline](quick_start.md). The recipe index is [just.md](just.md).
+Kandinsky 6 on [vLLM-Omni](https://github.com/vllm-project/vllm-omni) `main`. This environment is separate from [the pipeline](quick_start.md). The recipe index is [just.md](../just.md).
 
 You need [uv](https://docs.astral.sh/uv/) and [just](https://just.systems/). Run every recipe from the repository root.
 

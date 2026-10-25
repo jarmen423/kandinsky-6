@@ -17,7 +17,7 @@
 
 <a href="https://kandinskylab.ai/models/video/"><img alt="KandinskyLab" src="https://img.shields.io/badge/KandinskyLab-76E0B7?style=for-the-badge"></a>
 <a href="https://huggingface.co/papers/2610.05608"><img alt="Report" src="https://img.shields.io/badge/Report-9C2731?style=for-the-badge"></a>
-<a href="https://huggingface.co/docs/diffusers/main/en/api/pipelines/kandinsky6"><img alt="Diffusers" src="https://img.shields.io/badge/Diffusers-F8D44E?style=for-the-badge"></a>
+<a href="https://huggingface.co/docs/diffusers/en/api/pipelines/kandinsky6"><img alt="Diffusers" src="https://img.shields.io/badge/Diffusers-F8D44E?style=for-the-badge"></a>
 <a href="https://huggingface.co/spaces/kandinskylab/Kandinsky-6.0-Pro-distill-5s"><img alt="HF Demo" src="https://img.shields.io/badge/HF%20Demo-D9622B?style=for-the-badge"></a>
 <a href="https://registry.comfy.org/nodes/kandinsky6"><img alt="ComfyUI" src="https://img.shields.io/badge/ComfyUI-EBF764?style=for-the-badge"></a>
 <a href="https://docs.vllm.ai/projects/vllm-omni/en/latest/api/vllm_omni/diffusion/models/kandinsky6/"><img alt="vLL-Omni" src="https://img.shields.io/badge/vLLM Omni-54A0F8?style=for-the-badge"></a>
@@ -35,7 +35,8 @@ and Kandinsky 6.0 Video Pro (29B parameters). Both models generate 5-second vide
 
 ## Project Updates
 
-- 2026/10/06: Kandinsky 6.0 is now available in [Diffusers](https://huggingface.co/docs/diffusers/main/en/api/pipelines/kandinsky6), [ComfyUI](https://registry.comfy.org/nodes/kandinsky6), [vLLM-omni](https://docs.vllm.ai/projects/vllm-omni/en/latest/api/vllm_omni/diffusion/models/kandinsky6/), [SGLang](https://docs.sglang.io/cookbook/diffusion/Kandinsky/Kandinsky6) and [FastVideo](https://haoailab.com/FastVideo/inference/kandinsky6)
+- 2026/10/25: The native pipeline now generates from a first and last frame, from an audio file, and from a video file. The calls and `just generate` flags are in [Generation modes](docs/generation_modes.md).
+- 2026/10/06: Kandinsky 6.0 is now available in [Diffusers](https://huggingface.co/docs/diffusers/en/api/pipelines/kandinsky6), [ComfyUI](https://registry.comfy.org/nodes/kandinsky6), [vLLM-omni](https://docs.vllm.ai/projects/vllm-omni/en/latest/api/vllm_omni/diffusion/models/kandinsky6/), [SGLang](https://docs.sglang.io/cookbook/diffusion/Kandinsky/Kandinsky6) and [FastVideo](https://haoailab.com/FastVideo/inference/kandinsky6)
 - 2026/10/06: We added Hugging Face Space for [Kandinsky 6.0 Pro Distill](https://huggingface.co/spaces/kandinskylab/Kandinsky-6.0-Pro-distill-5s)
 - 2026/10/06: We have open-sourced **Kandinsky 6.0** and [**Kandinsky 6.0 Video Super-Resolution**](https://github.com/kandinskylab/kandinsky-6-sr)
 
@@ -47,12 +48,12 @@ An NVIDIA GPU. You need [uv](https://docs.astral.sh/uv/) and [just](https://just
 
 | Path | Guide |
 |---|---|
-| Pipeline | [docs/quick_start.md](docs/quick_start.md) |
-| vLLM-Omni | [docs/quick_start_vllm.md](docs/quick_start_vllm.md) |
-| SGLang | [docs/quick_start_sglang.md](docs/quick_start_sglang.md) |
-| FastVideo | [docs/quick_start_fastvideo.md](docs/quick_start_fastvideo.md) |
+| Pipeline | [docs/quickstart/quick_start.md](docs/quickstart/quick_start.md) |
+| vLLM-Omni | [docs/quickstart/quick_start_vllm.md](docs/quickstart/quick_start_vllm.md) |
+| SGLang | [docs/quickstart/quick_start_sglang.md](docs/quickstart/quick_start_sglang.md) |
+| FastVideo | [docs/quickstart/quick_start_fastvideo.md](docs/quickstart/quick_start_fastvideo.md) |
 
-The recipe index is [docs/just.md](docs/just.md).
+The recipe index is [docs/just.md](docs/just.md). The default call is text to video with audio. One image starts from a reference frame, two images set the first and last frames, an audio file drives the video, and a video file drives the audio. The Python calls and `just generate` flags are in [Generation modes](docs/generation_modes.md).
 
 ```bash
 git clone https://github.com/kandinskylab/kandinsky-6.git
@@ -89,6 +90,7 @@ Module breakdowns:
 
 - [H100 80 GB](docs/performance/h100.md)
 - [RTX 4090 24 GB](docs/performance/rtx-4090.md)
+- [RTX 5060 Ti 16 GB](docs/performance/rtx-5060-ti.md)
 - [RTX 5090 32 GB](docs/performance/rtx-5090.md)
 - [A100 80 GB](docs/performance/a100.md)
 

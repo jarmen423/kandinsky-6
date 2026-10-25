@@ -9,6 +9,9 @@ setup *ARGS:
     exec "{{justfile_directory()}}/scripts/setup-gpu.sh" --no-dev {{ARGS}}
 
 # Generate a video: just generate 'A cat is lying on a mat, turns toward the camera, opens its mouth and says <S>Hello<E>'
+# First and last frame: just generate 'The person walks toward the doorway.' --image first.png --last-image last.png
+# Audio conditions the video: just generate 'A person speaks.' --audio-file speech.wav
+# Video conditions the audio: just generate 'Ocean waves and seabirds.' --video-file silent.mp4
 generate PROMPT *ARGS:
     @uv run kandy generate {{quote(PROMPT)}} {{ARGS}}
 
@@ -49,7 +52,7 @@ setup-vllm:
     set -euo pipefail
     exec "{{justfile_directory()}}/scripts/setup-framework.sh" vllm
 
-# SGLang main with the diffusion extra, in .venvs/sglang. Separate from `just setup`.
+# SGLang 0.5.22 with the diffusion extra, in .venvs/sglang. Separate from `just setup`.
 setup-sglang:
     #!/usr/bin/env bash
     set -euo pipefail

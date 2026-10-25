@@ -1,6 +1,6 @@
 # Quick start: FastVideo
 
-[FastVideo](https://haoailab.com/FastVideo/inference/kandinsky6/) for Kandinsky 6. This environment is separate from [the pipeline](quick_start.md). The recipe index is [just.md](just.md).
+[FastVideo](https://haoailab.com/FastVideo/inference/kandinsky6/) for Kandinsky 6. This environment is separate from [the pipeline](quick_start.md). The recipe index is [just.md](../just.md).
 
 You need [uv](https://docs.astral.sh/uv/) and [just](https://just.systems/). Run every recipe from the repository root.
 

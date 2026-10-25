@@ -118,12 +118,11 @@ case "$name" in
         echo "vLLM-Omni is installed in .venvs/vllm-omni"
         ;;
     sglang)
-        # Kandinsky 6 is not in a released SGLang package. Install current main.
+        # Kandinsky 6 shipped in SGLang 0.5.22. Install that release, not a git commit.
         ensure_venv .venvs/sglang
-        clone_main https://github.com/sgl-project/sglang.git .third-party/sglang
         uv pip install --python "$PWD/.venvs/sglang/bin/python" --prerelease=allow \
-            --directory .third-party/sglang -e "python[diffusion]"
-        echo "SGLang is installed in .venvs/sglang"
+            "sglang[diffusion]==0.5.22"
+        echo "SGLang 0.5.22 is installed in .venvs/sglang"
         ;;
     fastvideo)
         ensure_venv .venvs/fastvideo

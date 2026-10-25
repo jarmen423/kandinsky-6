@@ -48,7 +48,10 @@ def generate(  # noqa: PLR0913
     navicache: bool = False,
     offload: str | None = None,
     image: str | None = None,
+    last_image: str | None = None,
     audio: bool = True,
+    audio_file: str | None = None,
+    video_file: str | None = None,
     progress: bool = True,
     sr: bool = False,
     warmup: bool = False,
@@ -63,7 +66,13 @@ def generate(  # noqa: PLR0913
     ``--offload module`` enables async CUDA module offload (overrides YAML).
     ``--attention-engine`` overrides YAML ``attention.engine``.
     Prompt rewrite follows YAML ``beautifier.name`` (default ``qwen25``).
-    ``--image`` enables I2VA / I2V conditioning (path to reference image).
+    ``--image`` enables I2VA / I2V conditioning (path to one reference image).
+    ``--last-image`` with ``--image`` uses those two frames as the first and last
+    references of one video.
+    ``--audio-file`` generates video conditioned on that audio file.
+    ``--video-file`` generates audio conditioned on that video file.
+    ``--audio-file`` and ``--video-file`` exclude each other, ``--image``,
+    ``--last-image``, and ``--no-audio``.
     ``--no-audio`` generates video only (t2v / i2v). Audio is on by default.
     ``--progress`` is the default and shows a tqdm bar over the denoising steps
     (and over the SR tiles). ``--no-progress`` hides it. In a log file each
@@ -84,6 +93,13 @@ def generate(  # noqa: PLR0913
 
     if magcache and navicache:
         raise ValueError("--magcache and --navicache are mutually exclusive")
+    conditioning = _conditioning_inputs(
+        image=image,
+        last_image=last_image,
+        sample_audio=audio,
+        audio_file=audio_file,
+        video_file=video_file,
+    )
 
     if navicache:
         cache_mode = "navicache"
@@ -130,7 +146,9 @@ def generate(  # noqa: PLR0913
             seed=seed,
             negative_text=negative,
             save_path=save_path,
-            image=image,
+            image=conditioning.image,
+            audio=conditioning.audio,
+            video=conditioning.video,
             sample_audio=audio,
             show_progress=progress,
         )
@@ -167,6 +185,44 @@ def generate(  # noqa: PLR0913
         force=sr,
         warmup=warmup,
     )
+
+
+class _ConditioningInputs:
+    """Pipeline media arguments parsed from ``kandy generate`` flags."""
+
+    def __init__(
+        self,
+        image: str | list[list[str]] | None,
+        audio: str | None,
+        video: str | None,
+    ) -> None:
+        self.image = image
+        self.audio = audio
+        self.video = video
+
+
+def _conditioning_inputs(
+    *,
+    image: str | None,
+    last_image: str | None,
+    sample_audio: bool,
+    audio_file: str | None,
+    video_file: str | None,
+) -> _ConditioningInputs:
+    """Map CLI media flags onto one pipeline call. Reject combinations the pipeline rejects."""
+    references: str | list[list[str]] | None = image
+    if last_image is not None:
+        if image is None:
+            raise ValueError("--last-image requires --image")
+        references = [[image, last_image]]
+    if audio_file is not None and video_file is not None:
+        raise ValueError("pass either --audio-file or --video-file, not both")
+    media = audio_file is not None or video_file is not None
+    if media and references is not None:
+        raise ValueError("--audio-file and --video-file cannot be combined with --image")
+    if media and not sample_audio:
+        raise ValueError("--audio-file and --video-file cannot be combined with --no-audio")
+    return _ConditioningInputs(references, audio_file, video_file)
 
 
 def _bind_generate_run(run: Path) -> None:
